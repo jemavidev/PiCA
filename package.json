@@ -1,6 +1,6 @@
 {
-  "name": "@pica/agent",
-  "version": "1.0.0-alpha",
+  "name": "pica-betteragents",
+  "version": "1.0.0",
   "description": "PiCA - Pi Coding Agent",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist/",

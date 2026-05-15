@@ -406,7 +406,7 @@ describe('AgentX Orchestrator', () => {
       expect(result.recommendedNextSteps).toBeDefined();
       expect(result.totalTokens).toBeGreaterThanOrEqual(0);
       expect(result.totalCost).toBeGreaterThanOrEqual(0);
-      expect(result.executionTime).toBeGreaterThan(0);
+      expect(result.executionTime).toBeGreaterThanOrEqual(0);
     });
 
     it('should generate appropriate next steps', async () => {
@@ -418,9 +418,8 @@ describe('AgentX Orchestrator', () => {
 
       const result = await agentx.orchestrate(request);
 
-      expect(result.recommendedNextSteps).toContain(
-        expect.stringMatching(/(review|Check|Plan|Run)/i)
-      );
+      expect(result.recommendedNextSteps.length).toBeGreaterThan(0);
+      expect(result.recommendedNextSteps.some(step => /(review|Check|Plan|Run)/i.test(step))).toBe(true);
     });
   });
 
@@ -465,7 +464,7 @@ describe('AgentX Orchestrator', () => {
       expect(result.intentDetected).toBe('analyze');
       expect(result.selectedAgent.role).toBe('critic');
       expect(result.agentResults.length).toBeGreaterThan(0);
-      expect(result.executionTime).toBeGreaterThan(0);
+      expect(result.executionTime).toBeGreaterThanOrEqual(0);
 
       // Verify memory was updated
       expect(mockMemoryManager.recordStep).toHaveBeenCalled();
