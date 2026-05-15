@@ -1,0 +1,33 @@
+{
+  "id": "example-analyzer",
+  "name": "Code Analyzer Skill",
+  "description": "A template skill for analyzing code structure and patterns",
+  "category": "analyzer",
+  "agents": ["critic", "architect"],
+  "prompts": [
+    {
+      "name": "analyze-structure",
+      "content": "Analyze the code structure and identify key components, patterns, and potential issues.",
+      "parameters": {
+        "code": "The code to analyze",
+        "language": "Programming language of the code"
+      }
+    },
+    {
+      "name": "detect-issues",
+      "content": "Detect potential issues in the provided code including performance, security, and maintainability problems.",
+      "parameters": {
+        "code": "The code to analyze",
+        "focusAreas": "Comma-separated areas to focus on (e.g., performance, security)"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "input": "class User { constructor(name) { this.name = name; } }",
+      "output": "The class lacks type definitions and has no methods. Consider adding getters/setters and TypeScript types.",
+      "explanation": "Example of identifying code quality issues"
+    }
+  ],
+  "version": "1.0.0"
+}

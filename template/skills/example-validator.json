@@ -1,0 +1,44 @@
+{
+  "id": "example-validator",
+  "name": "Code Validator Skill",
+  "description": "A template skill for validating code quality and test coverage",
+  "category": "validator",
+  "agents": ["tester", "critic"],
+  "prompts": [
+    {
+      "name": "validate-quality",
+      "content": "Validate code quality against best practices including naming conventions, complexity, and documentation.",
+      "parameters": {
+        "code": "The code to validate",
+        "language": "Programming language",
+        "standards": "Coding standards to check against"
+      }
+    },
+    {
+      "name": "generate-tests",
+      "content": "Generate comprehensive unit tests for the provided code, including happy path and edge cases.",
+      "parameters": {
+        "code": "The code to test",
+        "language": "Programming language",
+        "framework": "Testing framework to use"
+      }
+    },
+    {
+      "name": "check-coverage",
+      "content": "Analyze test coverage and identify untested code paths and edge cases.",
+      "parameters": {
+        "code": "The code to analyze",
+        "testCode": "Existing tests",
+        "language": "Programming language"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "input": "function divide(a, b) { return a / b; }",
+      "output": "Missing: zero divisor check, type validation, documentation",
+      "explanation": "Example of identifying validation issues"
+    }
+  ],
+  "version": "1.0.0"
+}

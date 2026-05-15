@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PiCA Session Schema",
+  "description": "Schema for session metadata and state",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique session identifier",
+      "pattern": "^session-[0-9]+-[a-z0-9]+$"
+    },
+    "projectPath": {
+      "type": "string",
+      "description": "Absolute path to the project"
+    },
+    "createdAt": {
+      "type": "integer",
+      "description": "Session creation timestamp (milliseconds since epoch)"
+    },
+    "updatedAt": {
+      "type": "integer",
+      "description": "Last update timestamp"
+    },
+    "version": {
+      "type": "string",
+      "description": "Session version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["active", "paused", "completed", "error"],
+      "description": "Current session state"
+    },
+    "activeAgent": {
+      "type": "string",
+      "description": "ID of currently active agent (optional)"
+    },
+    "totalTokens": {
+      "type": "integer",
+      "description": "Total tokens used in session",
+      "minimum": 0
+    },
+    "totalCost": {
+      "type": "number",
+      "description": "Total cost in USD",
+      "minimum": 0
+    },
+    "agentMetrics": {
+      "type": "object",
+      "description": "Performance metrics per agent",
+      "properties": {
+        "critic": {
+          "$ref": "#/definitions/agentMetrics"
+        },
+        "architect": {
+          "$ref": "#/definitions/agentMetrics"
+        },
+        "coder": {
+          "$ref": "#/definitions/agentMetrics"
+        },
+        "tester": {
+          "$ref": "#/definitions/agentMetrics"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "projectPath", "createdAt", "updatedAt", "version", "state", "totalTokens", "totalCost", "agentMetrics"],
+  "definitions": {
+    "agentMetrics": {
+      "type": "object",
+      "properties": {
+        "executions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "averageLatency": {
+          "type": "number",
+          "minimum": 0
+        },
+        "averageTokens": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalCost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lastExecution": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errorCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["executions", "averageLatency", "averageTokens", "totalCost", "lastExecution", "errorCount"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "@pica/agent",
+  "version": "1.0.0-alpha",
+  "description": "PiCA - Pi Coding Agent",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "pica": "bin/cli.js",
+    "pica-init": "bin/init.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist/",
+    "prebuild": "npm run clean",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "files": [
+    "dist/",
+    "bin/",
+    "template/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "code-analysis",
+    "code-generation",
+    "llm",
+    "orchestration"
+  ],
+  "author": "PiCA Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jemavidev/BetterAgents"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.10"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}

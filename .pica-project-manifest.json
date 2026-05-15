@@ -1,0 +1,235 @@
+{
+  "project": {
+    "name": "PiCA - Pi Coding Agent",
+    "version": "1.0.0-alpha",
+    "type": "npm-package",
+    "publish_target": "npm",
+    "main_entry": "dist/index.js",
+    "types_entry": "dist/index.d.ts"
+  },
+
+  "inventory": {
+    "CORE": {
+      "description": "Production code that goes to npm package - what users receive",
+      "locations": [
+        "src/ (except __tests__/)",
+        "bin/",
+        "template/agents/",
+        "template/skills/",
+        "template/config/"
+      ],
+      "key_files": [
+        "src/agentx.ts",
+        "src/hook-manager.ts",
+        "src/approval-manager.ts",
+        "src/skill-registry.ts",
+        "src/parallel-executor.ts",
+        "src/agent-loader.ts",
+        "src/index.ts"
+      ],
+      "config_files": [
+        "package.json",
+        "LICENSE"
+      ],
+      "includes_in_npm": true,
+      "includes_in_github": true,
+      "rule": "All source code that makes the framework functional"
+    },
+
+    "CONFIG": {
+      "description": "Configuration files required for any development/production environment",
+      "locations": [
+        "tsconfig.json",
+        ".gitignore"
+      ],
+      "includes_in_npm": true,
+      "includes_in_github": true,
+      "rule": "Necessary for TypeScript, Git, and build to work"
+    },
+
+    "DOCS": {
+      "description": "User-facing documentation for end users and developers using the framework",
+      "locations": [
+        "docs/",
+        "docs/README.md",
+        "docs/INSTALLATION.md",
+        "docs/API.md",
+        "docs/ARCHITECTURE.md",
+        "docs/EXAMPLES.md"
+      ],
+      "includes_in_npm": true,
+      "npm_distribution": "./docs",
+      "includes_in_github": true,
+      "rule": "Public-facing guides, API reference, architecture docs"
+    },
+
+    "DEVELOPMENT": {
+      "description": "Development-only tools, tests, internal notes, roadmaps - NOT for npm package",
+      "locations": [
+        "_dev/",
+        "src/__tests__/",
+        "scripts/",
+        "_dev/SECURITY-ANALYSIS.md",
+        "_dev/PARALLEL-EXECUTION.md",
+        "_dev/HYGIENIZER-AGENT.md",
+        "_dev/INDEX.md"
+      ],
+      "includes_in_npm": false,
+      "includes_in_github": true,
+      "should_gitignore": false,
+      "rule": "In GitHub repo but EXCLUDED from npm package. For developers only"
+    },
+
+    "GENERATED": {
+      "description": "Build artifacts and runtime outputs - should NEVER be committed",
+      "locations": [
+        "dist/",
+        "logs/",
+        "node_modules/",
+        "*.log",
+        ".pica/"
+      ],
+      "includes_in_npm": false,
+      "includes_in_github": false,
+      "should_gitignore": true,
+      "rule": "Generated at build time. Must be in .gitignore"
+    }
+  },
+
+  "import_rules": {
+    "description": "Rules for what can import from what. Prevents circular dependencies.",
+    "CORE_can_import_from": [
+      "CORE",
+      "CONFIG"
+    ],
+    "CONFIG_can_import_from": [
+      "CONFIG"
+    ],
+    "DOCS_can_import_from": [
+      "Nothing (documentation only)"
+    ],
+    "DEVELOPMENT_can_import_from": [
+      "CORE",
+      "CONFIG",
+      "DEVELOPMENT"
+    ],
+    "GENERATED_can_import_from": [
+      "CORE",
+      "CONFIG"
+    ],
+    "CRITICAL": "CORE files MUST NEVER import from DEVELOPMENT, DOCS, or GENERATED"
+  },
+
+  "file_creation_protocol": {
+    "description": "Before creating ANY new file, follow this protocol to avoid saturation",
+    "steps": [
+      {
+        "step": 1,
+        "action": "CLASSIFY",
+        "question": "Is this file part of the CORE framework (goes to npm users)?",
+        "if_yes": "Proceed to step 2",
+        "if_no": "This is DEVELOPMENT. Go to step 5"
+      },
+      {
+        "step": 2,
+        "action": "CATEGORIZE_CORE",
+        "question": "Is this CORE file one of:",
+        "options": [
+          "Source code (src/) - TypeScript implementation",
+          "Documentation (docs/) - User-facing guides",
+          "Template (template/) - User templates",
+          "CLI (bin/) - Executable scripts"
+        ],
+        "action": "Place in correct CORE location"
+      },
+      {
+        "step": 3,
+        "action": "VALIDATE_IMPORTS",
+        "question": "Does this file only import from CORE and CONFIG?",
+        "if_no": "STOP. Fix imports or move to DEVELOPMENT",
+        "if_yes": "Proceed"
+      },
+      {
+        "step": 4,
+        "action": "UPDATE_MANIFEST",
+        "action": "Add file path to inventory.CORE.key_files or locations",
+        "then": "Create file"
+      },
+      {
+        "step": 5,
+        "action": "CLASSIFY_DEVELOPMENT",
+        "question": "Is this DEVELOPMENT file one of:",
+        "options": [
+          "Test (src/__tests__/) - Unit/E2E tests",
+          "Development note (_dev/) - Internal docs, roadmaps, analysis",
+          "Script (scripts/) - Build/utility scripts",
+          "Temporary (_dev/) - Temporary analysis, drafts"
+        ],
+        "action": "Place in correct DEVELOPMENT location"
+      },
+      {
+        "step": 6,
+        "action": "UPDATE_MANIFEST",
+        "action": "Add file path to inventory.DEVELOPMENT.locations",
+        "then": "Create file"
+      }
+    ]
+  },
+
+  "npm_package_contents": {
+    "what_goes_in": [
+      "dist/ (compiled JavaScript and type definitions)",
+      "bin/ (CLI executables)",
+      "template/ (user templates)",
+      "docs/ (documentation)",
+      "package.json",
+      "LICENSE",
+      "README.md"
+    ],
+    "what_is_excluded": [
+      "_dev/ (internal notes and analysis)",
+      "src/__tests__/ (test files)",
+      "scripts/ (development scripts)",
+      "node_modules/ (dependencies installed separately)",
+      "dist/ is NOT included as source (generated fresh on install)"
+    ]
+  },
+
+  "saturation_prevention": {
+    "monthly_audit_checklist": [
+      "Are all files in inventory classified correctly?",
+      "Are there any 'orphaned' files (not in manifest)?",
+      "Are there files in wrong locations?",
+      "Are there duplicate files in different locations?",
+      "Is any CORE file importing from DEVELOPMENT?"
+    ],
+    "red_flags": [
+      "More than 15 files in root directory (besides config)",
+      "Documentation spread across multiple directories",
+      "Test files outside of src/__tests__/",
+      "Development notes mixed with production code",
+      "Files with unclear purpose (check with Hygienizer Agent)"
+    ]
+  },
+
+  "hygienizer_agent_invocation": {
+    "description": "The Repository Hygienizer Agent is the guardian of this manifest",
+    "can_be_invoked_with": [
+      "/repo-audit - Full audit of directory structure",
+      "/repo-suggest-location [file] - Where should this file go?",
+      "/repo-cleanup - Identify misplaced files and suggest relocations",
+      "/repo-status - Current project structure status",
+      "Direct question: 'Where should I put this file?'"
+    ],
+    "agent_validates_against": ".pica-project-manifest.json",
+    "agent_ensures": "No file creation without proper classification"
+  },
+
+  "metadata": {
+    "created_date": "2026-05-15",
+    "last_audit": "2026-05-15T12:00:00Z",
+    "last_audit_status": "CLEAN",
+    "audit_frequency": "Every 10 major file additions or weekly",
+    "maintained_by": "Repository Hygienizer Agent"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PiCA Memory Schema",
+  "description": "Schema for memory session and cache configuration",
+  "type": "object",
+  "properties": {
+    "maxSessionSize": {
+      "type": "string",
+      "description": "Maximum size of a session before cleanup (e.g., '100MB')",
+      "pattern": "^\\d+[KMG]B$",
+      "default": "100MB"
+    },
+    "keepVersions": {
+      "type": "integer",
+      "description": "Number of session versions to keep for rollback",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 3
+    },
+    "compressionEnabled": {
+      "type": "boolean",
+      "description": "Enable compression for session files",
+      "default": false
+    },
+    "checksumAlgorithm": {
+      "type": "string",
+      "enum": ["sha256", "md5"],
+      "description": "Algorithm for memory integrity checking",
+      "default": "sha256"
+    },
+    "cacheDuration": {
+      "type": "integer",
+      "description": "How long to keep cached results (milliseconds)",
+      "default": 604800000,
+      "examples": [3600000, 604800000]
+    },
+    "autoCleanup": {
+      "type": "boolean",
+      "description": "Automatically cleanup old sessions and cache",
+      "default": true
+    },
+    "cleanupInterval": {
+      "type": "integer",
+      "description": "How often to run cleanup (milliseconds)",
+      "default": 86400000,
+      "examples": [3600000, 86400000]
+    }
+  },
+  "required": ["maxSessionSize", "keepVersions", "checksumAlgorithm"],
+  "additionalProperties": false
+}

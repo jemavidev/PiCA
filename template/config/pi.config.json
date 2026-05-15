@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "piPath": ".pica",
+  "apiKey": "${OPENROUTER_API_KEY}",
+  "providers": {
+    "primary": "openrouter",
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "models": {
+        "orchestrator": "openrouter/openai/gpt-4-turbo",
+        "analysis": "openrouter/deepseek/deepseek-chat",
+        "generation": "openrouter/deepseek/deepseek-chat",
+        "validation": "openrouter/google/gemini-2.0-flash"
+      },
+      "rateLimit": 100
+    }
+  },
+  "memory": {
+    "maxSessionSize": "100MB",
+    "keepVersions": 3,
+    "compressionEnabled": false,
+    "checksumAlgorithm": "sha256"
+  },
+  "logging": {
+    "level": "info",
+    "logDir": ".pica/logs",
+    "formats": ["jsonl", "json", "text"]
+  },
+  "dashboard": {
+    "enabled": true,
+    "port": null,
+    "pollingInterval": 2000,
+    "maxChartPoints": 100
+  }
+}

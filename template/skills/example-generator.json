@@ -1,0 +1,37 @@
+{
+  "id": "example-generator",
+  "name": "Code Generator Skill",
+  "description": "A template skill for generating production-ready code",
+  "category": "generator",
+  "agents": ["coder", "architect"],
+  "prompts": [
+    {
+      "name": "generate-function",
+      "content": "Generate a production-ready function with proper error handling, documentation, and type definitions.",
+      "parameters": {
+        "name": "Function name",
+        "description": "What the function should do",
+        "parameters": "Input parameters and their types",
+        "language": "Programming language"
+      }
+    },
+    {
+      "name": "generate-class",
+      "content": "Generate a complete class with constructor, methods, getters/setters, and proper documentation.",
+      "parameters": {
+        "name": "Class name",
+        "description": "Class purpose",
+        "methods": "Comma-separated method names",
+        "language": "Programming language"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "input": "function calculateTotal with parameters items (array) and taxRate (number)",
+      "output": "function calculateTotal(items: Item[], taxRate: number): number { const subtotal = items.reduce((sum, item) => sum + item.price, 0); return subtotal * (1 + taxRate); }",
+      "explanation": "Example of generating a typed function with proper implementation"
+    }
+  ],
+  "version": "1.0.0"
+}
