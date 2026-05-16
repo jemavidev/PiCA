@@ -20,7 +20,7 @@ export interface LocalConfig {
 export interface PiConfig {
   version: string;
   piPath: string;
-  apiKey: string | null;
+  apiKey: string;
   providers: {
     primary: string;
     openrouter: {

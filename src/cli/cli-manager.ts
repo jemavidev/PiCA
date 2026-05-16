@@ -4,6 +4,7 @@
  */
 
 import { initializePiCA } from '../index';
+import { ConfigLoader } from '../config-loader';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
@@ -73,7 +74,7 @@ export class CLIManager {
             openrouter: {
               baseUrl: 'https://openrouter.ai/api/v1',
               models: {
-                orchestrator: 'openrouter/openai/gpt-4-turbo',
+                orchestrator: 'openrouter/anthropic/claude-3-haiku',
                 analysis: 'openrouter/deepseek/deepseek-chat',
                 generation: 'openrouter/deepseek/deepseek-chat',
                 validation: 'openrouter/google/gemini-2.0-flash',
@@ -208,11 +209,14 @@ export class CLIManager {
     console.log(`📊 Analyzing: ${filePath}`);
 
     try {
+      // Load configuration from .pica-local.json or defaults
+      const config = ConfigLoader.loadConfig(this.context.projectPath, this.context.piPath);
+
       // Initialize PiCA
       const pica = await initializePiCA({
         projectPath: this.context.projectPath,
         piPath: this.context.piPath,
-        apiKey: this.context.apiKey,
+        apiKey: config.apiKey,
       });
 
       // Create session
@@ -259,10 +263,13 @@ export class CLIManager {
     console.log(`🔨 Generating code: ${description}`);
 
     try {
+      // Load configuration from .pica-local.json or defaults
+      const config = ConfigLoader.loadConfig(this.context.projectPath, this.context.piPath);
+
       const pica = await initializePiCA({
         projectPath: this.context.projectPath,
         piPath: this.context.piPath,
-        apiKey: this.context.apiKey,
+        apiKey: config.apiKey,
       });
 
       const sessionId = await pica.sessionManager.createSession(this.context.projectPath);
@@ -293,10 +300,13 @@ export class CLIManager {
     console.log(`✔️  Validating: ${filePath}`);
 
     try {
+      // Load configuration from .pica-local.json or defaults
+      const config = ConfigLoader.loadConfig(this.context.projectPath, this.context.piPath);
+
       const pica = await initializePiCA({
         projectPath: this.context.projectPath,
         piPath: this.context.piPath,
-        apiKey: this.context.apiKey,
+        apiKey: config.apiKey,
       });
 
       const sessionId = await pica.sessionManager.createSession(this.context.projectPath);
