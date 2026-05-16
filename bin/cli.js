@@ -66,7 +66,7 @@ async function main() {
       case '-v':
       case '--version':
         const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8'));
-        console.log(`PiCA ${pkg.version}`);
+        console.log(`BetterAgents ${pkg.version}`);
         break;
 
       case '-h':
