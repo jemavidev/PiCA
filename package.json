@@ -1,5 +1,5 @@
 {
-  "name": "betteragents",
+  "name": "@jemavidev/betteragents",
   "version": "1.0.2",
   "description": "PiCA - Pi Coding Agent",
   "main": "dist/index.js",
