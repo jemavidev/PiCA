@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "projectPath": ".",
+  "openrouterApiKey": "sk-or-v1-your-api-key-here",
+  "settings": {
+    "autoRefresh": 2000,
+    "tokenBudget": 4000,
+    "cacheDuration": 604800,
+    "logRetention": 30
+  },
+  "customization": {
+    "dashboardPort": null,
+    "customAgents": [],
+    "customSkills": []
+  }
+}

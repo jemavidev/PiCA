@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
   "piPath": ".pica",
-  "apiKey": "${OPENROUTER_API_KEY}",
+  "apiKey": null,
   "providers": {
     "primary": "openrouter",
     "openrouter": {
       "baseUrl": "https://openrouter.ai/api/v1",
       "models": {
-        "orchestrator": "openrouter/openai/gpt-4-turbo",
+        "orchestrator": "openrouter/anthropic/claude-3-haiku",
         "analysis": "openrouter/deepseek/deepseek-chat",
         "generation": "openrouter/deepseek/deepseek-chat",
         "validation": "openrouter/google/gemini-2.0-flash"
