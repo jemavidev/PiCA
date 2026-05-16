@@ -1,12 +1,12 @@
 {
-  "name": "pica-betteragents",
-  "version": "1.0.1",
+  "name": "betteragents",
+  "version": "1.0.2",
   "description": "PiCA - Pi Coding Agent",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "pica": "bin/cli.js",
-    "pica-init": "bin/init.js"
+    "betteragents": "bin/cli.js",
+    "betteragents-init": "bin/init.js"
   },
   "scripts": {
     "build": "tsc",
